@@ -3,6 +3,7 @@ test_csv_service
 
 Testing suite for CSVService
 """
+
 import os
 import csv
 import shutil
@@ -24,7 +25,7 @@ class TestCSVService:
         """Docstring for filename
 
         :return: example filename
-        :rtype: str """
+        :rtype: str"""
         os.mkdir("testdir")
         yield "testdir/scraped_shows.csv"
         shutil.rmtree("testdir")
