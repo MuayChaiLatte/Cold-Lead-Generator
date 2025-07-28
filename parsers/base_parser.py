@@ -78,7 +78,7 @@ class BaseParser:
         try:
             selectors_df = pd.read_csv(
                 "config/scraping_selectors.csv",
-                index_col="Theatre_Name",  # TODO create config/scraping_selectors.csv
+                index_col="Theatre_Name",
             )
         except (FileNotFoundError, KeyError) as e:
             raise ValueError(
