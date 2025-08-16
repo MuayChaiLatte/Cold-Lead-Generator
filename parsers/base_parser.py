@@ -13,6 +13,7 @@ from bs4 import BeautifulSoup, Tag
 import pandas as pd
 from models.show import Show
 from models.theatre import Theatre
+from utils.date_utils import DateUtils
 
 
 class BaseParser:
@@ -127,6 +128,18 @@ class BaseParser:
         Returns:
             tuple: (start_date, end_date) once implemented.
         """
+
+    def _find_start_month_if_missing(
+        self, start_date: str, end_date_with_month: str
+    ) -> str:
+        """Find missing month for start date"""
+        start_parts = start_date.split(" ")
+        end_parts = end_date_with_month.split(" ")
+
+        if len(start_parts) == 3:
+            return ""
+        else:
+            return " " + end_parts[2]
 
     def _extract_show_property(self, show_element: Tag, selector_key: str) -> str:
         """
