@@ -118,7 +118,7 @@ class BaseParser:
             link=show_url,
         )
 
-    def _parse_date(self, raw_date: str):  # TODO implement date parser
+    def _parse_date(self, raw_date: str):
         """
         Parse a raw date string into structured start and end dates.
 
@@ -128,6 +128,23 @@ class BaseParser:
         Returns:
             tuple: (start_date, end_date) once implemented.
         """
+        raw_date = raw_date.strip()
+        date_part, *_ = raw_date.split(",")
+        current_year = DateUtils.get_current_year()
+
+        if " - " in date_part:
+            start_date, end_date = date_part.split(" - ")
+            start_date += (
+                self._find_start_month_if_missing(start_date, end_date)
+                + " "
+                + current_year
+            )
+            end_date += " " + current_year
+        else:
+            start_date = date_part + " " + current_year
+            end_date = start_date
+
+        return DateUtils.format_dates(start_date, end_date)
 
     def _find_start_month_if_missing(
         self, start_date: str, end_date_with_month: str
