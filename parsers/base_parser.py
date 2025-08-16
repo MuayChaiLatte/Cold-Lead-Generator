@@ -109,12 +109,13 @@ class BaseParser:
         title = self._extract_show_property(show_element, "Title")
         raw_date = self._extract_show_property(show_element, "Raw_Date")
         show_url = self._extract_show_property(show_element, "Show_URL")
+        start_date, end_date = self._parse_date(raw_date)
 
-        return Show(  # TODO Use true start/end dates rather than raw_date
+        return Show(
             theatre=self.theatre.name,
             title=title,
-            start_date=raw_date,
-            end_date=raw_date,
+            start_date=start_date,
+            end_date=end_date,
             link=show_url,
         )
 
